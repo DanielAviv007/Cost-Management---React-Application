@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap'
+import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 
 function CostForm() {
     const categories = ["FOOD", "HEALTH", "EDUCATION", "TRAVEL", "HOUSING", "OTHER"];
@@ -20,36 +20,41 @@ function CostForm() {
     };
 
     return (
-        <Form className='rounded p-4 shadow-lg costForm' style={{ width: '400px' }}>
-            <InputGroup className='mb-3'>
-                <Form.Control min={0.01} step={0.01} type='number' required
-                    value={amount}
-                    onChange={onAmountChangeHandler}
-                />
-                <InputGroup.Text>$</InputGroup.Text>
-            </InputGroup>
-            <FloatingLabel label="Select a category" className="mb-3">
-                <Form.Select
-                    value={category}
-                    onChange={onCategoryChangeHandler}
-                >
-                    {categories.map(cat => <option key={cat}>{cat}</option>)}
-                </Form.Select>
-            </FloatingLabel>
-            <Form.Group className="mb-3">
-                <FloatingLabel label="Description" className="mb-4">
-                    <Form.Control as="textarea" placeholder="Enter purchase description"
-                        className='descField'
-                        value={description}
-                        onChange={onDescriptionChangeHandler}
-                        style={{ height: '200px', resize: 'none' }}
+        <>
+            <header>
+                <h1>Cost Form</h1>
+            </header>
+            <Form className='rounded p-4 mb-5 shadow-lg costForm' style={{ width: '400px' }}>
+                <InputGroup className='mb-3'>
+                    <Form.Control min={0.01} step={0.01} type='number' required
+                        value={amount}
+                        onChange={onAmountChangeHandler}
                     />
+                    <InputGroup.Text>$</InputGroup.Text>
+                </InputGroup>
+                <FloatingLabel label="Select a category" className="mb-3">
+                    <Form.Select
+                        value={category}
+                        onChange={onCategoryChangeHandler}
+                    >
+                        {categories.map(cat => <option key={cat}>{cat}</option>)}
+                    </Form.Select>
                 </FloatingLabel>
-            </Form.Group>
-            <div className='d-flex justify-content-center'>
-                <Button className='btn-lg' type="submit" onClick={addCostHandler}>Add Cost</Button>
-            </div>
-        </Form>
+                <Form.Group className="mb-3">
+                    <FloatingLabel label="Description" className="mb-4">
+                        <Form.Control as="textarea" placeholder="Enter purchase description"
+                            className='descField'
+                            value={description}
+                            onChange={onDescriptionChangeHandler}
+                            style={{ height: '200px', resize: 'none' }}
+                        />
+                    </FloatingLabel>
+                </Form.Group>
+                <div className='d-flex justify-content-center'>
+                    <Button className='btn-lg' type="submit">Add Cost</Button>
+                </div>
+            </Form>
+        </>
     );
 }
 
