@@ -3,7 +3,7 @@ import { idb } from '../idb';
 import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 
 function CostForm() {
-    const categories = ["FOOD", "HEALTH", "EDUCATION", "TRAVEL", "HOUSING", "OTHER"];
+    const categories = ['FOOD', 'HEALTH', 'EDUCATION', 'TRAVEL', 'HOUSING', 'OTHER'];
 
     const [sum, setSum] = useState(0.01);
     const [category, setCategory] = useState('');
@@ -41,7 +41,7 @@ function CostForm() {
                     />
                     <InputGroup.Text>$</InputGroup.Text>
                 </InputGroup>
-                <FloatingLabel label="Select a category" className="mb-3">
+                <FloatingLabel label='Select a category' className='mb-3'>
                     <Form.Select
                         value={category}
                         onChange={onCategoryChangeHandler}
@@ -49,9 +49,9 @@ function CostForm() {
                         {categories.map(cat => <option key={cat}>{cat}</option>)}
                     </Form.Select>
                 </FloatingLabel>
-                <Form.Group className="mb-3">
-                    <FloatingLabel label="Description" className="mb-4">
-                        <Form.Control as="textarea" placeholder="Enter purchase description"
+                <Form.Group className='mb-3'>
+                    <FloatingLabel label='Description' className='mb-4'>
+                        <Form.Control as='textarea' placeholder='Enter purchase description'
                             className='descField'
                             value={description}
                             onChange={onDescriptionChangeHandler}
@@ -60,7 +60,7 @@ function CostForm() {
                     </FloatingLabel>
                 </Form.Group>
                 <div className='d-flex justify-content-center'>
-                    <Button className='btn-lg' type="submit" onClick={addCostHandler}>Add Cost</Button>
+                    <Button className='btn-lg' type='submit' onClick={addCostHandler}>Add Cost</Button>
                 </div>
             </Form>
         </>

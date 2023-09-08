@@ -32,7 +32,12 @@ idb.openCostsDB = (dbName, dbVersion) => new Promise((resolve, reject) => {
             const dateMatcher = IDBKeyRange.only(date);
             const request = costsDates.getAll(dateMatcher);
 
-            request.onsuccess = event => resolve(event.target.result);
+            request.onsuccess = event => {
+                const monthlyCosts = event.target.result
+                    .map(({ sum, description, category }) => ({ sum, description, category }));
+
+                resolve(monthlyCosts);
+            };
             request.onerror = event => reject(`Error getting costs: ${event.target.error}`);
         });
 
@@ -40,6 +45,7 @@ idb.openCostsDB = (dbName, dbVersion) => new Promise((resolve, reject) => {
     };
     idbRequest.onupgradeneeded = event => {
         const costsDB = event.target.result;
+
         if (!idb.costsObjectStore) {
             idb.costsObjectStore = costsDB.createObjectStore('costs', { keyPath: 'id', autoIncrement: true });
             idb.costsObjectStore.createIndex('date', 'date', { unique: false });

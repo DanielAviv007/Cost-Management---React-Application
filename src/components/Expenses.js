@@ -2,13 +2,12 @@ import { Modal, Alert, Table } from 'react-bootstrap';
 
 function ExpensesTable({ show, setShow, expenses = [] }) {
     const onHide = () => setShow(false);
-
-    const rowExpense = ({amount, desc, cat}) => {
+    const rowExpense = ({sum, description, category}) => {
         return (
             <tr>
-                <td>{amount}</td>
-                <td>{desc}</td>
-                <td>{cat}</td>
+                <td>{sum}</td>
+                <td>{description}</td>
+                <td>{category}</td>
             </tr>
         );
     };
