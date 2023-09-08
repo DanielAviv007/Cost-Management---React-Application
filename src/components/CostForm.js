@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-
+import { idb } from '../idb';
 import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 
 function CostForm() {
     const categories = ["FOOD", "HEALTH", "EDUCATION", "TRAVEL", "HOUSING", "OTHER"];
 
-    const [amount, setAmount] = useState(0.01);
+    const [sum, setSum] = useState(0.01);
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
 
-    const onAmountChangeHandler = event => setAmount(parseFloat(event.target.value));
+    const onSumChangeHandler = event => setSum(parseFloat(event.target.value));
     const onCategoryChangeHandler = event => setCategory(event.target.value);
     const onDescriptionChangeHandler = event => setDescription(event.target.value);
 
-    const addCostHandler = event => {
+    const addCostHandler = async (event) => {
         event.preventDefault();
-        // TODO: save in indexed-db data base with the current-time.
-        console.log({ amount: amount, category: category, description: description });
+
+        const costsDB = await idb.openCostsDB('costsdb', 1);
+        const costData = {
+            sum: sum,
+            category: category,
+            description: description,
+            date: new Date()
+        };
+        const result = await costsDB.addCost(costData);
+
+        // TODO: handle errors
     };
 
     return (
@@ -27,8 +36,8 @@ function CostForm() {
             <Form className='rounded p-4 mb-5 shadow-lg costForm' style={{ width: '400px' }}>
                 <InputGroup className='mb-3'>
                     <Form.Control min={0.01} step={0.01} type='number' required
-                        value={amount}
-                        onChange={onAmountChangeHandler}
+                        value={sum}
+                        onChange={onSumChangeHandler}
                     />
                     <InputGroup.Text>$</InputGroup.Text>
                 </InputGroup>
@@ -51,7 +60,7 @@ function CostForm() {
                     </FloatingLabel>
                 </Form.Group>
                 <div className='d-flex justify-content-center'>
-                    <Button className='btn-lg' type="submit">Add Cost</Button>
+                    <Button className='btn-lg' type="submit" onClick={addCostHandler}>Add Cost</Button>
                 </div>
             </Form>
         </>
