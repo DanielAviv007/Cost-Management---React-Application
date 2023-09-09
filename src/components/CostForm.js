@@ -5,27 +5,36 @@ import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 function CostForm() {
     const categories = ['FOOD', 'HEALTH', 'EDUCATION', 'TRAVEL', 'HOUSING', 'OTHER'];
 
-    const [sum, setSum] = useState(0.01);
+    const [sum, setSum] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
 
-    const onSumChangeHandler = event => setSum(parseFloat(event.target.value));
+    const onSumChangeHandler = event => setSum(event.target.value);
     const onCategoryChangeHandler = event => setCategory(event.target.value);
     const onDescriptionChangeHandler = event => setDescription(event.target.value);
 
+    const resetFields = () => {
+        setSum('');
+        setCategory('');
+        setDescription('');
+    };
     const addCostHandler = async (event) => {
         event.preventDefault();
 
-        const costsDB = await idb.openCostsDB('costsdb', 1);
-        const costData = {
-            sum: sum,
-            category: category,
-            description: description,
-            date: new Date()
-        };
-        const result = await costsDB.addCost(costData);
-
-        // TODO: handle errors
+        try {
+            const costsDB = await idb.openCostsDB('costsdb', 1);
+            const costData = {
+                sum: sum,
+                category: category,
+                description: description,
+                date: new Date()
+            };
+            await costsDB.addCost(costData);
+            resetFields();
+        } catch (error) {
+            console.error(error);
+            alert(error);
+        }
     };
 
     return (
@@ -33,7 +42,7 @@ function CostForm() {
             <header>
                 <h1>Cost Form</h1>
             </header>
-            <Form className='rounded p-4 mb-5 shadow-lg costForm' style={{ width: '400px' }}>
+            <Form className='rounded p-4 mb-5 shadow-lg costForm' style={{ width: '400px' }} onSubmit={addCostHandler}>
                 <InputGroup className='mb-3'>
                     <Form.Control min={0.01} step={0.01} type='number' required
                         value={sum}
@@ -45,7 +54,9 @@ function CostForm() {
                     <Form.Select
                         value={category}
                         onChange={onCategoryChangeHandler}
+                        required
                     >
+                        <option disabled value=""></option>
                         {categories.map(cat => <option key={cat}>{cat}</option>)}
                     </Form.Select>
                 </FloatingLabel>
@@ -60,7 +71,7 @@ function CostForm() {
                     </FloatingLabel>
                 </Form.Group>
                 <div className='d-flex justify-content-center'>
-                    <Button className='btn-lg' type='submit' onClick={addCostHandler}>Add Cost</Button>
+                    <Button className='btn-lg' type='submit'>Add Cost</Button>
                 </div>
             </Form>
         </>

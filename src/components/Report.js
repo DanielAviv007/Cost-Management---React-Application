@@ -21,14 +21,18 @@ function Report() {
         const costsdb = await idb.openCostsDB('costsdb', 1);
         const expenses = await costsdb.getMonthlyReport(selectedMonthYear);
 
-        // TODO: check for errors!
         return expenses;
     };
     const renderReport = async () => {
-        const expenses = await getMonthlyReport();
+        try {
+            const expenses = await getMonthlyReport();
 
-        setExpenses(expenses);
-        setShowExpenses(true);
+            setExpenses(expenses);
+            setShowExpenses(true);
+        } catch (error) {
+            console.error(error);
+            alert(error);
+        }
     };
 
     return (
