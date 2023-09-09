@@ -1,3 +1,5 @@
+// Daniel Aviv 209228154
+// Yarin Naftali 208678565
 import { Modal, Alert, Table } from 'react-bootstrap';
 
 function ExpensesTable({ show, setShow, expenses = [] }) {
