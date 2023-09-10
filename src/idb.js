@@ -1,6 +1,6 @@
 // Daniel Aviv 209228154
 // Yarin Naftali 208678565
-import { getFormattedYearMonth } from './utils'
+import { utlisObj } from './utils'
 
 export const idb = {};
 
@@ -22,7 +22,7 @@ idb.openCostsDB = (dbName, dbVersion) => new Promise((resolve, reject) => {
                 sum: sum,
                 category: category,
                 description: description,
-                date: getFormattedYearMonth(new Date())
+                date: utlisObj.getFormattedYearMonth(new Date())
             };
             costsObjectStore.add(costData);
         });

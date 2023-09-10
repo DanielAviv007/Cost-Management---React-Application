@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ExpensesTable from './Expenses';
-import { getFormattedYearMonth } from '../utils'
+import { utlisObj } from '../utils'
 import { idb } from '../idb';
 
 function Report() {
@@ -43,7 +43,7 @@ function Report() {
                 <h2>Select Month</h2>
             </header>
             <section margin='mt-4' className='report-section'>
-                <input type='month' margin='mb-3' max={getFormattedYearMonth(new Date())}
+                <input type='month' margin='mb-3' max={utlisObj.getFormattedYearMonth(new Date())}
                     value={selectedMonthYear}
                     onChange={onMonthYearChangeHandler}
                 />

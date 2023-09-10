@@ -1,6 +1,9 @@
 // Daniel Aviv 209228154
 // Yarin Naftali 208678565
-export const getFormattedYearMonth = date => {
+
+export const utlisObj = {};
+
+utlisObj.getFormattedYearMonth = date => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
 
