@@ -42,9 +42,8 @@ function Report() {
             <header>
                 <h2>Select Month</h2>
             </header>
-            <section margin='mt-4' style={{ display: 'flex', width: '400px', justifyContent: 'space-between' }}>
+            <section margin='mt-4' className='report-section'>
                 <input type='month' margin='mb-3' max={getFormattedYearMonth(new Date())}
-                    style={{ borderRadius: '10px' }}
                     value={selectedMonthYear}
                     onChange={onMonthYearChangeHandler}
                 />

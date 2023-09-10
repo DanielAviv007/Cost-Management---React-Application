@@ -44,7 +44,7 @@ function CostForm() {
             <header>
                 <h1>Cost Form</h1>
             </header>
-            <Form className='rounded p-4 mb-5 shadow-lg costForm' style={{ width: '400px' }} onSubmit={addCostHandler}>
+            <Form className='rounded p-4 mb-5 shadow-lg cost-form' onSubmit={addCostHandler}>
                 <InputGroup className='mb-3'>
                     <Form.Control min={0.01} step={0.01} type='number' required
                         value={sum}
@@ -53,10 +53,9 @@ function CostForm() {
                     <InputGroup.Text>$</InputGroup.Text>
                 </InputGroup>
                 <FloatingLabel label='Select a category' className='mb-3'>
-                    <Form.Select
+                    <Form.Select required
                         value={category}
                         onChange={onCategoryChangeHandler}
-                        required
                     >
                         <option disabled value=""></option>
                         {categories.map(cat => <option key={cat}>{cat}</option>)}
@@ -64,11 +63,10 @@ function CostForm() {
                 </FloatingLabel>
                 <Form.Group className='mb-3'>
                     <FloatingLabel label='Description' className='mb-4'>
-                        <Form.Control as='textarea' placeholder='Enter purchase description'
-                            className='descField'
+                        <Form.Control as='textarea' placeholder='Enter purchase description' required
+                            className='desc-field'
                             value={description}
                             onChange={onDescriptionChangeHandler}
-                            style={{ height: '200px', resize: 'none' }}
                         />
                     </FloatingLabel>
                 </Form.Group>

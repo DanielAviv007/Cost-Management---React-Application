@@ -2,3 +2,20 @@
 Daniel Aviv 209228154
 Yarin Naftali 208678565 
 */
+input[type=month] {
+    border-radius: 10px;
+}
+
+.report-section {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.desc-field {
+    resize: none;
+}
+
+.cost-form {
+    width: 400px;
+}
