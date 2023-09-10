@@ -1,29 +1,39 @@
 // Daniel Aviv 209228154
 // Yarin Naftali 208678565
+
+// Import necessary dependencies from React and other modules.
 import React, { useState } from 'react';
 import { idb } from '../idb';
 import { Button, Form, FloatingLabel, InputGroup } from 'react-bootstrap';
 
+// Define the "CostForm" component responsible for adding costs.
 function CostForm() {
+    // Define an array of expense categories.
     const categories = ['FOOD', 'HEALTH', 'EDUCATION', 'TRAVEL', 'HOUSING', 'OTHER'];
 
+    // Define state variables for sum, category, and description inputs.
     const [sum, setSum] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
 
+    // Event handlers for input changes.
     const onSumChangeHandler = event => setSum(event.target.value);
     const onCategoryChangeHandler = event => setCategory(event.target.value);
     const onDescriptionChangeHandler = event => setDescription(event.target.value);
 
+    // Function to reset form fields.
     const resetFields = () => {
         setSum('');
         setCategory('');
         setDescription('');
     };
+
+    // Function to handle adding a new cost.
     const addCostHandler = async (event) => {
         event.preventDefault();
 
         try {
+            // Open the IndexedDB database and add the cost data.
             const costsDB = await idb.openCostsDB('costsdb', 1);
             const costData = {
                 sum: sum,
@@ -39,6 +49,7 @@ function CostForm() {
         }
     };
 
+    // Render the cost input form.
     return (
         <>
             <header>
@@ -78,4 +89,5 @@ function CostForm() {
     );
 }
 
+// Export the "CostForm" component as the default export of this module.
 export default CostForm;
